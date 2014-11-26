@@ -17,6 +17,8 @@ This project has very small system requirements:
 
 * [Maven Getting Started Guide](http://maven.apache.org/guides/getting-started/index.html)
 * [Maven Lifecycle Reference](http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference)
+* [Java Build Tools Report Part 1 by RebelLabs](http://pages.zeroturnaround.com/RebelLabs-AllReportLanders_JavaBuildTools.html)
+* [Java Build Tools Report Part 2 by RebelLabs](http://pages.zeroturnaround.com/RebelLabs-AllReportLanders_JavaBuildToolsPart2.html)
 
 ## License
 
