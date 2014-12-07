@@ -1,10 +1,10 @@
-# Introduction to build tools
+# Introduction to build tools #
 
 This workspace consists build tools (Ant, Maven, Gradle) usage examples for series of lectures at Gdańsk University of Technology. They are categorized in different directories, one for each tool usage example.
 
 ## Structure ##
 
-Each example has it's own directory (independent Ant/Maven/Gradle project). This directory in named in <example_number>-<build_tool>-<topic> pattern.
+Each topic (Maven, Ant and Gradle) has it's own directory. Inside it each example has it's own directory named in &lt;example_number&gt;-&lt;topic&gt; pattern. Each example is independent application that can be run without anything else that what's within it.
 
 ## Requirements ##
 
