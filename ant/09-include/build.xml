@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="09-include" default="dist" basedir=".">
+    <include file="utils.xml" />
+
+    <target name="javac" depends="utils.clean" description="Compiles Java sources to bytecode">
+        <mkdir dir="${target.classes}" />
+
+        <compile-class package="pl/org/dragonia/buildtools/ant/include" name="AppUtils" />
+        <compile-class package="pl/org/dragonia/buildtools/ant/include" name="App" />
+    </target>
+
+    <target name="package" depends="javac">
+        <package-jar finalName="executable" mainClass="pl.org.dragonia.buildtools.ant.include.App" />
+    </target>
+
+    <target name="dist" depends="package">
+    </target>
+</project>

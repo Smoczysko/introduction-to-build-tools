@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="10-contrib" default="dist" basedir=".">
+    <include file="utils.xml" />
+
+    <target name="javac" depends="utils.clean" description="Compiles Java sources to bytecode">
+        <mkdir dir="${target.classes}" />
+
+        <compile-classes package="pl/org/dragonia/buildtools/ant/contrib" names="AppUtils,App" />
+    </target>
+
+    <target name="package" depends="javac">
+        <package-jar finalName="executable" mainClass="pl.org.dragonia.buildtools.ant.contrib.App" />
+    </target>
+
+    <target name="dist" depends="package">
+    </target>
+</project>

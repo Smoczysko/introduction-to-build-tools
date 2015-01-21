@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="08-macrodef" default="dist" basedir=".">
+    <property name="source.dir" value="src/main/java" />
+    <property name="target.dir" value="target" />
+    <property name="target.classes" value="target/classes" />
+
+    <target name="clean">
+        <delete dir="${target.dir}" failonerror="false" />
+    </target>
+
+    <target name="javac" depends="clean" description="Compiles Java sources to bytecode">
+        <mkdir dir="${target.classes}" />
+
+        <compile-class package="pl/org/dragonia/buildtools/ant/macrodef" name="AppUtils" />
+        <compile-class package="pl/org/dragonia/buildtools/ant/macrodef" name="App" />
+    </target>
+
+    <macrodef name="compile-class">
+        <attribute name="package" />
+        <attribute name="name" />
+
+        <sequential>
+            <javac destdir="${target.classes}"
+                   encoding="utf-8" includeantruntime="false"
+                   source="1.6" target="1.6">
+                <src path="${source.dir}/@{package}" />
+                <include name="@{name}.java" />
+            </javac>
+        </sequential>
+    </macrodef>
+
+    <target name="package" depends="javac">
+        <package-jar finalName="executable" mainClass="pl.org.dragonia.buildtools.ant.macrodef.App" />
+    </target>
+
+    <macrodef name="package-jar">
+        <attribute name="finalName" />
+        <attribute name="mainClass" />
+
+        <sequential>
+            <jar basedir="${target.classes}" destfile="${target.dir}/@{finalName}.jar">
+                <manifest>
+                    <attribute name="Main-Class" value="@{mainClass}" />
+                </manifest>
+            </jar>
+        </sequential>
+    </macrodef>
+
+    <target name="dist" depends="package">
+    </target>
+</project>
