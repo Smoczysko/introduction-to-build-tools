@@ -14,6 +14,7 @@ This project has very small system requirements:
 * Apache Maven 3.0 or higher
 * Apache Ant 1.9.0 or higher
 * Apache Ivy 2.4.0 or higher
+* Ant-Contib Tasks 0.3 or higher
 
 ## References ##
 
@@ -21,6 +22,7 @@ This project has very small system requirements:
 * [Maven Lifecycle Reference](http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference)
 * [Apache Ant Manual](http://ant.apache.org/manual/index.html)
 * [Apache Ivy Documentation](http://ant.apache.org/ivy/history/latest-milestone/index.html)
+* [Ant-Contrib Tasks](http://ant-contrib.sourceforge.net)
 
 ## Additional reading ##
 
