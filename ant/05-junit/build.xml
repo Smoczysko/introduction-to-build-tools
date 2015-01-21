@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="05-junit" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+    <property name="source.dir" value="src/main/java"/>
+    <property name="test.source.dir" value="src/test/java"/>
+    <property name="target.dir" value="target/classes"/>
+    <property name="libs.dir" value="lib"/>
+
+    <target name="resolve" description="Downloads and configures all project dependencies">
+        <ivy:retrieve />
+    </target>
+
+    <target name="clean">
+        <delete dir="${target.dir}" failonerror="false"/>
+    </target>
+
+    <path id="project.class.path">
+        <pathelement location="${target.dir}"/>
+        <!-- Add any additional non-standard libs (such as jUnit) from Ivy-->
+        <fileset dir="lib" includes="**/*.jar" excludes="*-sources.jar,*-javadoc.jar"/>
+    </path>
+
+    <target name="javac" depends="clean, resolve" description="Compiles Java sources to bytecode">
+        <mkdir dir="${target.dir}"/>
+        <javac srcdir="${source.dir}" includes="**" encoding="utf-8"
+               destdir="${target.dir}"
+               includeantruntime="false"
+               source="1.6" target="1.6">
+        </javac>
+    </target>
+
+    <target name="package" depends="javac">
+        <jar basedir="${target.dir}" destfile="target/executable.jar">
+            <manifest>
+                <attribute name="Main-Class" value="pl.org.dragonia.buildtools.ant.junit.App"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="dist" depends="package">
+    </target>
+
+    <!-- TESTS -->
+
+    <target name="javac.tests" depends="javac" description="Compiles test code">
+        <javac srcdir="${test.source.dir}" includes="**" encoding="utf-8"
+               destdir="${target.dir}"
+               includeantruntime="false"
+               source="1.6" target="1.6">
+            <classpath refid="project.class.path"/>
+        </javac>
+    </target>
+
+    <target name="test" depends="javac.tests" description="Run development mode tests">
+        <mkdir dir="reports" />
+        <junit fork="yes" printsummary="yes" haltonfailure="yes">
+            <jvmarg line="-Xmx256m" />
+            <sysproperty key="java.awt.headless" value="true" />
+
+            <classpath>
+                <pathelement location="${source.dir}" />
+                <pathelement location="${test.source.dir}" />
+                <path refid="project.class.path" />
+            </classpath>
+
+            <batchtest todir="reports" >
+                <fileset dir="${test.source.dir}" >
+                    <include name="**/*TestCase.java" />
+                </fileset>
+            </batchtest>
+            <formatter type="plain" />
+            <formatter type="xml" />
+        </junit>
+    </target>
+</project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="02-executable-jar" default="dist" basedir=".">
+    <target name="javac" description="Compiles Java sources to bytecode">
+        <mkdir dir="target/classes" />
+        <javac srcdir="src/main/java" includes="**" encoding="utf-8"
+               destdir="target/classes"
+               includeantruntime="false"
+               source="1.6" target="1.6">
+        </javac>
+    </target>
+
+    <target name="package">
+        <jar basedir="target/classes" destfile="target/executable.jar">
+            <manifest>
+                <attribute name="Main-Class" value="pl.org.dragonia.buildtools.ant.executablejar.App" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="dist">
+        <ant target="javac" />
+        <ant target="package" />
+    </target>
+</project>

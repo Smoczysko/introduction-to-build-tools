@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="06-war" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+    <property name="source.dir" value="src/main/java"/>
+    <property name="webapp.dir" value="src/main/webapp"/>
+    <property name="target" value="target"/>
+    <property name="target.classes" value="${target}/classes"/>
+    <property name="libs.dir" value="lib"/>
+
+    <target name="clearcache" description="Clear the Apache Ivy cache">
+        <ivy:cleancache />
+    </target>
+
+    <target name="ivySettings">
+        <ivy:settings file="ivysettings.xml" />
+    </target>
+
+    <target name="resolve" description="Downloads and configures all project dependencies" depends="ivySettings">
+        <ivy:retrieve />
+    </target>
+
+    <target name="clean">
+        <delete dir="${target.classes}" failonerror="false" />
+        <delete dir="${libs.dir}" failonerror="false" />
+    </target>
+
+    <path id="project.class.path">
+        <pathelement location="${target.classes}"/>
+    </path>
+
+    <target name="javac" depends="clean, resolve" description="Compiles Java sources to bytecode">
+        <mkdir dir="${target.classes}"/>
+        <javac srcdir="${source.dir}" includes="**" encoding="utf-8"
+               destdir="${target.classes}"
+               includeantruntime="false"
+               source="1.6" target="1.6">
+            <classpath>
+                <path refid="project.class.path" />
+                <fileset dir="lib" includes="**/*.jar" excludes="*-sources.jar,*-javadoc.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="package" description="Package the contents of this project into AntTmplt.war" depends="javac">
+        <!-- Create the distribution directory -->
+        <delete file="${target}/helloservlet.war" />
+
+        <copy file="${webapp.dir}/WEB-INF/web.xml" tofile="${target}/WEB-INF/web.xml" overwrite="true" />
+
+        <war destfile="${target}/helloservlet.war" webxml="${target}/WEB-INF/web.xml">
+            <zipfileset dir="${target.classes}" prefix="WEB-INF/classes" >
+                <include name="**/*"/>
+            </zipfileset>
+        </war>
+    </target>
+
+    <target name="dist" depends="package">
+    </target>
+</project>

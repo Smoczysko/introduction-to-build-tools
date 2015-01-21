@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="03-properties" default="dist" basedir=".">
+    <property name="source.dir" value="src/main/java" />
+    <property name="target.dir" value="target/classes" />
+
+    <target name="javac" description="Compiles Java sources to bytecode">
+        <mkdir dir="${target.dir}" />
+        <javac srcdir="${source.dir}" includes="**" encoding="utf-8"
+               destdir="${target.dir}"
+               includeantruntime="false"
+               source="1.6" target="1.6">
+        </javac>
+    </target>
+
+    <target name="package">
+        <jar basedir="${target.dir}" destfile="target/executable.jar">
+            <manifest>
+                <attribute name="Main-Class" value="pl.org.dragonia.buildtools.ant.properties.App" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="dist">
+        <ant target="javac" />
+        <ant target="package" />
+    </target>
+</project>

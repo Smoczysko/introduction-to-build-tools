@@ -1,0 +1,10 @@
+<ivy-module version="2.0">
+    <info organisation="pl.org.dragonia" module="buildtools"/>
+
+    <dependencies>
+        <dependency org="javax" name="javaee-web-api" rev="7.0" />
+
+        <dependency org="org.eclipse.jetty" name="jetty-ant" rev="9.2.6.v20141205" />
+        <dependency org="org.glassfish.web" name="el-impl" rev="2.2" />
+    </dependencies>
+</ivy-module>

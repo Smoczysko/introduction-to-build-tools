@@ -1,4 +1,4 @@
-package pl.org.dragonia;
+package pl.org.dragonia.buildtools.maven.minimalistic;
 
 public class App {
     public static void main(String[] args) {
